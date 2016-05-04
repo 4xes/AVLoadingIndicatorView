@@ -41,111 +41,147 @@ import com.wang.avi.indicator.SemiCircleSpinIndicator;
 import com.wang.avi.indicator.SquareSpinIndicator;
 import com.wang.avi.indicator.TriangleSkewSpinIndicator;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 
 /**
  * Created by Jack on 2015/10/15
  * <p/>
- * .BallPulse,
- * .BallGridPulse,
- * .BallClipRotate,
- * .BallClipRotatePulse,
- * .SquareSpin,
- * .BallClipRotateMultiple,
- * .BallPulseRise,
- * .BallRotate,
- * .CubeTransition,
- * .BallZigZag,
- * .BallZigZagDeflect,
- * .BallTrianglePath,
- * .BallScale,
- * .LineScale,
- * .LineScaleParty,
- * .BallScaleMultiple,
- * .BallPulseSync,
- * .BallBeat,
- * .LineScalePulseOut,
- * .LineScalePulseOutRapid,
- * .BallScaleRipple,
- * .BallScaleRippleMultiple,
- * .BallSpinFadeLoader,
- * .LineSpinFadeLoader,
- * .TriangleSkewSpin,
- * .Pacman,
- * .BallGridBeat,
- * .SemiCircleSpin
+ * .BALL_PULSE,
+ * .BALL_GRID_PULSE,
+ * .BALL_CLIP_ROTATE,
+ * .BALL_CLIP_ROTATE_PULSE,
+ * .SQUARE_SPIN,
+ * .BALL_CLIP_ROTATE_MULTIPLE,
+ * .BALL_PULSE_RISE,
+ * .BALL_ROTATE,
+ * .CUBE_TRANSITION,
+ * .BALL_ZIG_ZAG,
+ * .BALL_ZIG_ZAG_DEFLECT,
+ * .BALL_TRIANGLE_PATH,
+ * .BALL_SCALE,
+ * .LINE_SCALE,
+ * .LINE_SCALE_PARTY,
+ * .BALL_SCALE_MULTIPLE,
+ * .BALL_PULSE_SYNC,
+ * .BALL_BEAT,
+ * .LINE_SCALE_PULSE_OUT,
+ * .LINE_SCALE_PULSE_OUT_RAPID,
+ * .BALL_SCALE_RIPPLE,
+ * .BALL_SCALE_RIPPLE_MULTIPLE,
+ * .BALL_SPIN_FADE_LOADER,
+ * .LINE_SPIN_FADE_LOADER,
+ * .TRIANGLE_SKEW_SPIN,
+ * .PACMAN,
+ * .BALL_GRID_BEAT,
+ * .SEMI_CIRCLE_SPIN
  */
 public class AVLoadingIndicatorView extends View {
 
-
-    //indicators
-    public static final int BallPulse = 0;
-    public static final int BallGridPulse = 1;
-    public static final int BallClipRotate = 2;
-    public static final int BallClipRotatePulse = 3;
-    public static final int SquareSpin = 4;
-    public static final int BallClipRotateMultiple = 5;
-    public static final int BallPulseRise = 6;
-    public static final int BallRotate = 7;
-    public static final int CubeTransition = 8;
-    public static final int BallZigZag = 9;
-    public static final int BallZigZagDeflect = 10;
-    public static final int BallTrianglePath = 11;
-    public static final int BallScale = 12;
-    public static final int LineScale = 13;
-    public static final int LineScaleParty = 14;
-    public static final int BallScaleMultiple = 15;
-    public static final int BallPulseSync = 16;
-    public static final int BallBeat = 17;
-    public static final int LineScalePulseOut = 18;
-    public static final int LineScalePulseOutRapid = 19;
-    public static final int BallScaleRipple = 20;
-    public static final int BallScaleRippleMultiple = 21;
-    public static final int BallSpinFadeLoader = 22;
-    public static final int LineSpinFadeLoader = 23;
-    public static final int TriangleSkewSpin = 24;
-    public static final int Pacman = 25;
-    public static final int BallGridBeat = 26;
-    public static final int SemiCircleSpin = 27;
-
-
     @IntDef(flag = true,
             value = {
-                    BallPulse,
-                    BallGridPulse,
-                    BallClipRotate,
-                    BallClipRotatePulse,
-                    SquareSpin,
-                    BallClipRotateMultiple,
-                    BallPulseRise,
-                    BallRotate,
-                    CubeTransition,
-                    BallZigZag,
-                    BallZigZagDeflect,
-                    BallTrianglePath,
-                    BallScale,
-                    LineScale,
-                    LineScaleParty,
-                    BallScaleMultiple,
-                    BallPulseSync,
-                    BallBeat,
-                    LineScalePulseOut,
-                    LineScalePulseOutRapid,
-                    BallScaleRipple,
-                    BallScaleRippleMultiple,
-                    BallSpinFadeLoader,
-                    LineSpinFadeLoader,
-                    TriangleSkewSpin,
-                    Pacman,
-                    BallGridBeat,
-                    SemiCircleSpin
+                    BALL_PULSE,
+                    BALL_GRID_PULSE,
+                    BALL_CLIP_ROTATE,
+                    BALL_CLIP_ROTATE_PULSE,
+                    SQUARE_SPIN,
+                    BALL_CLIP_ROTATE_MULTIPLE,
+                    BALL_PULSE_RISE,
+                    BALL_ROTATE,
+                    CUBE_TRANSITION,
+                    BALL_ZIG_ZAG,
+                    BALL_ZIG_ZAG_DEFLECT,
+                    BALL_TRIANGLE_PATH,
+                    BALL_SCALE,
+                    LINE_SCALE,
+                    LINE_SCALE_PARTY,
+                    BALL_SCALE_MULTIPLE,
+                    BALL_PULSE_SYNC,
+                    BALL_BEAT,
+                    LINE_SCALE_PULSE_OUT,
+                    LINE_SCALE_PULSE_OUT_RAPID,
+                    BALL_SCALE_RIPPLE,
+                    BALL_SCALE_RIPPLE_MULTIPLE,
+                    BALL_SPIN_FADE_LOADER,
+                    LINE_SPIN_FADE_LOADER,
+                    TRIANGLE_SKEW_SPIN,
+                    PACMAN,
+                    BALL_GRID_BEAT,
+                    SEMI_CIRCLE_SPIN
             })
+    @Retention(RetentionPolicy.SOURCE)
     public @interface Indicator {
     }
 
+    public static final int BALL_PULSE = 0;
+    public static final int BALL_GRID_PULSE = 1;
+    public static final int BALL_CLIP_ROTATE = 2;
+    public static final int BALL_CLIP_ROTATE_PULSE = 3;
+    public static final int SQUARE_SPIN = 4;
+    public static final int BALL_CLIP_ROTATE_MULTIPLE = 5;
+    public static final int BALL_PULSE_RISE = 6;
+    public static final int BALL_ROTATE = 7;
+    public static final int CUBE_TRANSITION = 8;
+    public static final int BALL_ZIG_ZAG = 9;
+    public static final int BALL_ZIG_ZAG_DEFLECT = 10;
+    public static final int BALL_TRIANGLE_PATH = 11;
+    public static final int BALL_SCALE = 12;
+    public static final int LINE_SCALE = 13;
+    public static final int LINE_SCALE_PARTY = 14;
+    public static final int BALL_SCALE_MULTIPLE = 15;
+    public static final int BALL_PULSE_SYNC = 16;
+    public static final int BALL_BEAT = 17;
+    public static final int LINE_SCALE_PULSE_OUT = 18;
+    public static final int LINE_SCALE_PULSE_OUT_RAPID = 19;
+    public static final int BALL_SCALE_RIPPLE = 20;
+    public static final int BALL_SCALE_RIPPLE_MULTIPLE = 21;
+    public static final int BALL_SPIN_FADE_LOADER = 22;
+    public static final int LINE_SPIN_FADE_LOADER = 23;
+    public static final int TRIANGLE_SKEW_SPIN = 24;
+    public static final int PACMAN = 25;
+    public static final int BALL_GRID_BEAT = 26;
+    public static final int SEMI_CIRCLE_SPIN = 27;
+
+    /*
+     * Array of indicator flags for mapping attribute "indicator" to correct
+     * flag value.
+     */
+    private static final int[] INDICATOR_FLAGS = {
+            BALL_PULSE,
+            BALL_GRID_PULSE,
+            BALL_CLIP_ROTATE,
+            BALL_CLIP_ROTATE_PULSE,
+            SQUARE_SPIN,
+            BALL_CLIP_ROTATE_MULTIPLE,
+            BALL_PULSE_RISE,
+            BALL_ROTATE,
+            CUBE_TRANSITION,
+            BALL_ZIG_ZAG,
+            BALL_ZIG_ZAG_DEFLECT,
+            BALL_TRIANGLE_PATH,
+            BALL_SCALE,
+            LINE_SCALE,
+            LINE_SCALE_PARTY,
+            BALL_SCALE_MULTIPLE,
+            BALL_PULSE_SYNC,
+            BALL_BEAT,
+            LINE_SCALE_PULSE_OUT,
+            LINE_SCALE_PULSE_OUT_RAPID,
+            BALL_SCALE_RIPPLE,
+            BALL_SCALE_RIPPLE_MULTIPLE,
+            BALL_SPIN_FADE_LOADER,
+            LINE_SPIN_FADE_LOADER,
+            TRIANGLE_SKEW_SPIN,
+            PACMAN,
+            BALL_GRID_BEAT,
+            SEMI_CIRCLE_SPIN
+    };
     //Sizes (with defaults in DP)
     public static final int DEFAULT_SIZE = 45;
 
     //attrs
+    @Indicator
     int mIndicatorId;
     int mIndicatorColor;
 
@@ -180,7 +216,7 @@ public class AVLoadingIndicatorView extends View {
 
     private void init(AttributeSet attrs, int defStyle) {
         TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.AVLoadingIndicatorView);
-        mIndicatorId = a.getInt(R.styleable.AVLoadingIndicatorView_indicator, BallPulse);
+        mIndicatorId = INDICATOR_FLAGS[a.getInt(R.styleable.AVLoadingIndicatorView_indicator, BALL_PULSE)];
         mIndicatorColor = a.getColor(R.styleable.AVLoadingIndicatorView_indicator_color, Color.WHITE);
         a.recycle();
         mPaint = new Paint();
@@ -192,88 +228,88 @@ public class AVLoadingIndicatorView extends View {
 
     private void applyIndicator() {
         switch (mIndicatorId) {
-            case BallPulse:
+            case BALL_PULSE:
                 mIndicatorController = new BallPulseIndicator();
                 break;
-            case BallGridPulse:
+            case BALL_GRID_PULSE:
                 mIndicatorController = new BallGridPulseIndicator();
                 break;
-            case BallClipRotate:
+            case BALL_CLIP_ROTATE:
                 mIndicatorController = new BallClipRotateIndicator();
                 break;
-            case BallClipRotatePulse:
+            case BALL_CLIP_ROTATE_PULSE:
                 mIndicatorController = new BallClipRotatePulseIndicator();
                 break;
-            case SquareSpin:
+            case SQUARE_SPIN:
                 mIndicatorController = new SquareSpinIndicator();
                 break;
-            case BallClipRotateMultiple:
+            case BALL_CLIP_ROTATE_MULTIPLE:
                 mIndicatorController = new BallClipRotateMultipleIndicator();
                 break;
-            case BallPulseRise:
+            case BALL_PULSE_RISE:
                 mIndicatorController = new BallPulseRiseIndicator();
                 break;
-            case BallRotate:
+            case BALL_ROTATE:
                 mIndicatorController = new BallRotateIndicator();
                 break;
-            case CubeTransition:
+            case CUBE_TRANSITION:
                 mIndicatorController = new CubeTransitionIndicator();
                 break;
-            case BallZigZag:
+            case BALL_ZIG_ZAG:
                 mIndicatorController = new BallZigZagIndicator();
                 break;
-            case BallZigZagDeflect:
+            case BALL_ZIG_ZAG_DEFLECT:
                 mIndicatorController = new BallZigZagDeflectIndicator();
                 break;
-            case BallTrianglePath:
+            case BALL_TRIANGLE_PATH:
                 mIndicatorController = new BallTrianglePathIndicator();
                 break;
-            case BallScale:
+            case BALL_SCALE:
                 mIndicatorController = new BallScaleIndicator();
                 break;
-            case LineScale:
+            case LINE_SCALE:
                 mIndicatorController = new LineScaleIndicator();
                 break;
-            case LineScaleParty:
+            case LINE_SCALE_PARTY:
                 mIndicatorController = new LineScalePartyIndicator();
                 break;
-            case BallScaleMultiple:
+            case BALL_SCALE_MULTIPLE:
                 mIndicatorController = new BallScaleMultipleIndicator();
                 break;
-            case BallPulseSync:
+            case BALL_PULSE_SYNC:
                 mIndicatorController = new BallPulseSyncIndicator();
                 break;
-            case BallBeat:
+            case BALL_BEAT:
                 mIndicatorController = new BallBeatIndicator();
                 break;
-            case LineScalePulseOut:
+            case LINE_SCALE_PULSE_OUT:
                 mIndicatorController = new LineScalePulseOutIndicator();
                 break;
-            case LineScalePulseOutRapid:
+            case LINE_SCALE_PULSE_OUT_RAPID:
                 mIndicatorController = new LineScalePulseOutRapidIndicator();
                 break;
-            case BallScaleRipple:
+            case BALL_SCALE_RIPPLE:
                 mIndicatorController = new BallScaleRippleIndicator();
                 break;
-            case BallScaleRippleMultiple:
+            case BALL_SCALE_RIPPLE_MULTIPLE:
                 mIndicatorController = new BallScaleRippleMultipleIndicator();
                 break;
-            case BallSpinFadeLoader:
+            case BALL_SPIN_FADE_LOADER:
                 mIndicatorController = new BallSpinFadeLoaderIndicator();
                 break;
-            case LineSpinFadeLoader:
+            case LINE_SPIN_FADE_LOADER:
                 mIndicatorController = new LineSpinFadeLoaderIndicator();
                 break;
-            case TriangleSkewSpin:
+            case TRIANGLE_SKEW_SPIN:
                 mIndicatorController = new TriangleSkewSpinIndicator();
                 break;
-            case Pacman:
+            case PACMAN:
                 mIndicatorController = new PacmanIndicator();
                 break;
-            case BallGridBeat:
+            case BALL_GRID_BEAT:
                 mIndicatorController = new BallGridBeatIndicator();
                 break;
-            case SemiCircleSpin:
+            case SEMI_CIRCLE_SPIN:
                 mIndicatorController = new SemiCircleSpinIndicator();
                 break;
         }
@@ -288,7 +324,7 @@ public class AVLoadingIndicatorView extends View {
     }
 
     private int measureDimension(int defaultSize, int measureSpec) {
-        int result = defaultSize;
+        int result;
         int specMode = MeasureSpec.getMode(measureSpec);
         int specSize = MeasureSpec.getSize(measureSpec);
         if (specMode == MeasureSpec.EXACTLY) {
