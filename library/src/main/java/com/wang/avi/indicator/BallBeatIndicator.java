@@ -2,6 +2,7 @@ package com.wang.avi.indicator;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.Log;
 
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ValueAnimator;
@@ -11,20 +12,19 @@ import java.util.List;
 
 /**
  * Created by Jack on 2015/10/19.
+ * optimized by Alex Petrushin
  */
 public class BallBeatIndicator extends BaseIndicatorController {
 
-    public static final float SCALE = 1.0f;
 
-    public static final int ALPHA = 255;
+    public static final float[] SCALES = {1.0f, 0.75f, 1.0f};
+    public static final int[] ALPHAS = {255, 55, 255};
 
-    private float[] scaleFloats = new float[]{SCALE,
-            SCALE,
-            SCALE};
+    public static final float INTERVAL_SCALE = SCALES[0] + SCALES[1];
+    public static final int INTERVAL_ALPHA = ALPHAS[0] + ALPHAS[1];
 
-    int[] alphas = new int[]{ALPHA,
-            ALPHA,
-            ALPHA,};
+    private float[] scaleFloats = new float[]{SCALES[0], SCALES[1], SCALES[2]};
+    private int[] alphas = {ALPHAS[0], ALPHAS[1], ALPHAS[2]};
 
     @Override
     public void draw(Canvas canvas, Paint paint) {
@@ -46,37 +46,40 @@ public class BallBeatIndicator extends BaseIndicatorController {
     @Override
     public List<Animator> createAnimation() {
         List<Animator> animators = new ArrayList<>();
-        int[] delays = new int[]{350, 0, 350};
-        for (int i = 0; i < 3; i++) {
-            final int index = i;
-            ValueAnimator scaleAnim = ValueAnimator.ofFloat(1, 0.75f, 1);
-            scaleAnim.setDuration(700);
-            scaleAnim.setRepeatCount(-1);
-            scaleAnim.setStartDelay(delays[i]);
-            scaleAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator animation) {
-                    scaleFloats[index] = (float) animation.getAnimatedValue();
-                    postInvalidate();
-                }
-            });
-            scaleAnim.start();
+        ValueAnimator scaleAnim = ValueAnimator.ofFloat(SCALES);
+        scaleAnim.setDuration(700);
+        scaleAnim.setRepeatCount(-1);
+        scaleAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 
-            ValueAnimator alphaAnim = ValueAnimator.ofInt(255, 51, 255);
-            alphaAnim.setDuration(700);
-            alphaAnim.setRepeatCount(-1);
-            alphaAnim.setStartDelay(delays[i]);
-            alphaAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator animation) {
-                    alphas[index] = (int) animation.getAnimatedValue();
-                    postInvalidate();
-                }
-            });
-            alphaAnim.start();
-            animators.add(scaleAnim);
-            animators.add(alphaAnim);
-        }
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                scaleFloats[0] = (float) animation.getAnimatedValue();
+                //invert value by interval
+                scaleFloats[1] = INTERVAL_SCALE - scaleFloats[0];
+                scaleFloats[2] = scaleFloats[0];
+                postInvalidate();
+            }
+        });
+
+        ValueAnimator alphaAnim = ValueAnimator.ofInt(ALPHAS);
+        alphaAnim.setDuration(700);
+        alphaAnim.setRepeatCount(-1);
+        alphaAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                alphas[0] = (int) animation.getAnimatedValue();
+                //invert value by interval
+                alphas[1] = INTERVAL_ALPHA - alphas[0];
+                alphas[2] = alphas[0];
+                postInvalidate();
+            }
+        });
+
+        scaleAnim.start();
+        alphaAnim.start();
+
+        animators.add(scaleAnim);
+        animators.add(alphaAnim);
         return animators;
     }
 
