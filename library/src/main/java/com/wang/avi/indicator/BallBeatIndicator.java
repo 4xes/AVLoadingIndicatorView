@@ -20,6 +20,11 @@ public class BallBeatIndicator extends BaseIndicatorController {
     public static final float[] SCALES = {1.0f, 0.75f, 1.0f};
     public static final int[] ALPHAS = {255, 55, 255};
 
+    public static final int[] INTERVALS = {200, 0, 200};
+
+    //INTERVALS[0] / (SCALES[0] - SCALES[1]);
+    public static final float DIFFER_VALUE = 800.0f;
+
     public static final float INTERVAL_SCALE = SCALES[0] + SCALES[1];
     public static final int INTERVAL_ALPHA = ALPHAS[0] + ALPHAS[1];
 
@@ -46,40 +51,32 @@ public class BallBeatIndicator extends BaseIndicatorController {
     @Override
     public List<Animator> createAnimation() {
         List<Animator> animators = new ArrayList<>();
-        ValueAnimator scaleAnim = ValueAnimator.ofFloat(SCALES);
-        scaleAnim.setDuration(700);
-        scaleAnim.setRepeatCount(-1);
-        scaleAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+        ValueAnimator scaleAnimator = ValueAnimator.ofInt(INTERVALS);
+        scaleAnimator.setDuration(700);
+        scaleAnimator.setRepeatCount(-1);
+        scaleAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                scaleFloats[0] = (float) animation.getAnimatedValue();
+                int value = (int) animation.getAnimatedValue();
+                //invert from [200:0] to [1.0f, 0.75f]
+                scaleFloats[0] = (float)(value) / DIFFER_VALUE + SCALES[1];
                 //invert value by interval
                 scaleFloats[1] = INTERVAL_SCALE - scaleFloats[0];
                 scaleFloats[2] = scaleFloats[0];
-                postInvalidate();
-            }
-        });
 
-        ValueAnimator alphaAnim = ValueAnimator.ofInt(ALPHAS);
-        alphaAnim.setDuration(700);
-        alphaAnim.setRepeatCount(-1);
-        alphaAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                alphas[0] = (int) animation.getAnimatedValue();
-                //invert value by interval
+                //invert from [200:0] to [255:55]
+                alphas[0] = value + ALPHAS[1];
                 alphas[1] = INTERVAL_ALPHA - alphas[0];
                 alphas[2] = alphas[0];
                 postInvalidate();
             }
         });
 
-        scaleAnim.start();
-        alphaAnim.start();
+        scaleAnimator.start();
 
-        animators.add(scaleAnim);
-        animators.add(alphaAnim);
+        animators.add(scaleAnimator);
+//        animators.add(alphaAnim);
         return animators;
     }
 
