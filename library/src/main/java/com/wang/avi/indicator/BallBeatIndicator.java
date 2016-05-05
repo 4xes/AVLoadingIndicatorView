@@ -37,13 +37,13 @@ public class BallBeatIndicator extends BaseIndicatorController {
         float x = getWidth() / 2 - (radius * 2 + circleSpacing);
         float y = getHeight() / 2;
         for (int i = 0; i < 3; i++) {
-            canvas.save();
-            float translateX = x + (radius * 2) * i + circleSpacing * i;
+            int saveCount = canvas.save();
+            float translateX = x + (radius * 2 + circleSpacing) * i;
             canvas.translate(translateX, y);
             canvas.scale(scaleFloats[i], scaleFloats[i]);
             paint.setAlpha(alphas[i]);
             canvas.drawCircle(0, 0, radius, paint);
-            canvas.restore();
+            canvas.restoreToCount(saveCount);
         }
     }
 
