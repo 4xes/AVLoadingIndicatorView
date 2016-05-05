@@ -1,10 +1,17 @@
 <resources>
 
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/dark_pink</item>
+        <item name="colorPrimaryDark">@color/dark_pink</item>
+        <item name="android:windowBackground">@color/dark_pink</item>
+        <item name="actionBarStyle">@style/ActionBarTheme</item>
+    </style>
+
+    <style name="ActionBarTheme" parent="Base.Widget.AppCompat.Light.ActionBar.Solid">
+        <!-- remove shadow under action bar -->
+        <item name="elevation">0dp</item>
     </style>
 
 </resources>
