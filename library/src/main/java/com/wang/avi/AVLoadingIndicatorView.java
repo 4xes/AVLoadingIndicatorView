@@ -17,6 +17,7 @@ import com.wang.avi.indicator.BallClipRotateMultipleIndicator;
 import com.wang.avi.indicator.BallClipRotatePulseIndicator;
 import com.wang.avi.indicator.BallGridBeatIndicator;
 import com.wang.avi.indicator.BallGridPulseIndicator;
+import com.wang.avi.indicator.BallPulseBeatIndicator;
 import com.wang.avi.indicator.BallPulseIndicator;
 import com.wang.avi.indicator.BallPulseRiseIndicator;
 import com.wang.avi.indicator.BallPulseSyncIndicator;
@@ -75,7 +76,8 @@ import java.lang.annotation.RetentionPolicy;
  * .TRIANGLE_SKEW_SPIN,
  * .PACMAN,
  * .BALL_GRID_BEAT,
- * .SEMI_CIRCLE_SPIN
+ * .SEMI_CIRCLE_SPIN,
+ * .BALL_PULSE_BEAT_INDICATOR
  */
 public class AVLoadingIndicatorView extends View {
 
@@ -108,7 +110,8 @@ public class AVLoadingIndicatorView extends View {
                     TRIANGLE_SKEW_SPIN,
                     PACMAN,
                     BALL_GRID_BEAT,
-                    SEMI_CIRCLE_SPIN
+                    SEMI_CIRCLE_SPIN,
+                    BALL_PULSE_BEAT_INDICATOR
             })
     @Retention(RetentionPolicy.SOURCE)
     public @interface Indicator {
@@ -142,6 +145,7 @@ public class AVLoadingIndicatorView extends View {
     public static final int PACMAN = 25;
     public static final int BALL_GRID_BEAT = 26;
     public static final int SEMI_CIRCLE_SPIN = 27;
+    public static final int BALL_PULSE_BEAT_INDICATOR = 28;
 
     /*
      * Array of indicator flags for mapping attribute "indicator" to correct
@@ -175,7 +179,8 @@ public class AVLoadingIndicatorView extends View {
             TRIANGLE_SKEW_SPIN,
             PACMAN,
             BALL_GRID_BEAT,
-            SEMI_CIRCLE_SPIN
+            SEMI_CIRCLE_SPIN,
+            BALL_PULSE_BEAT_INDICATOR
     };
     //Sizes (with defaults in DP)
     public static final int DEFAULT_SIZE = 45;
@@ -311,6 +316,9 @@ public class AVLoadingIndicatorView extends View {
                 break;
             case SEMI_CIRCLE_SPIN:
                 mIndicatorController = new SemiCircleSpinIndicator();
+                break;
+            case BALL_PULSE_BEAT_INDICATOR:
+                mIndicatorController = new BallPulseBeatIndicator();
                 break;
         }
         mIndicatorController.setTarget(this);
