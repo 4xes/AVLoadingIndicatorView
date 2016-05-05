@@ -6,30 +6,25 @@ import android.graphics.Paint;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ValueAnimator;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Jack on 2015/10/19.
- * optimized by Alex Petrushin
  */
 public class BallBeatIndicator extends BaseIndicatorController {
 
+    public static final float SCALE = 1.0f;
 
-    public static final float[] SCALES = {1.0f, 0.75f, 1.0f};
-    public static final int[] ALPHAS = {255, 55, 255};
+    public static final int ALPHA = 255;
 
-    //common interval animation for indicator
-    //its based on ALPHAS INTERVAL
-    public static final int[] INTERVALS = {200, 0, 200};
+    private float[] scaleFloats = new float[]{SCALE,
+            SCALE,
+            SCALE};
 
-    public static final float DIFFER_SCALES = ((float) INTERVALS[0]) / (SCALES[0]- SCALES[1]);
-
-    public static final float INTERVAL_SCALE = SCALES[0] + SCALES[1];
-    public static final int INTERVAL_ALPHA = ALPHAS[0] + ALPHAS[1];
-
-    private float[] scaleFloats = new float[]{SCALES[0], SCALES[1], SCALES[2]};
-    private int[] alphas = {ALPHAS[0], ALPHAS[1], ALPHAS[2]};
+    int[] alphas = new int[]{ALPHA,
+            ALPHA,
+            ALPHA,};
 
     @Override
     public void draw(Canvas canvas, Paint paint) {
@@ -38,44 +33,51 @@ public class BallBeatIndicator extends BaseIndicatorController {
         float x = getWidth() / 2 - (radius * 2 + circleSpacing);
         float y = getHeight() / 2;
         for (int i = 0; i < 3; i++) {
-            int saveCount = canvas.save();
-            float translateX = x + (radius * 2 + circleSpacing) * i;
+            canvas.save();
+            float translateX = x + (radius * 2) * i + circleSpacing * i;
             canvas.translate(translateX, y);
             canvas.scale(scaleFloats[i], scaleFloats[i]);
             paint.setAlpha(alphas[i]);
             canvas.drawCircle(0, 0, radius, paint);
-            canvas.restoreToCount(saveCount);
+            canvas.restore();
         }
     }
 
     @Override
     public List<Animator> createAnimation() {
-        ValueAnimator animator = ValueAnimator.ofInt(INTERVALS);
-        animator.setDuration(700);
-        animator.setRepeatCount(-1);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+        List<Animator> animators = new ArrayList<>();
+        int[] delays = new int[]{350, 0, 350};
+        for (int i = 0; i < 3; i++) {
+            final int index = i;
+            ValueAnimator scaleAnim = ValueAnimator.ofFloat(1, 0.75f, 1);
+            scaleAnim.setDuration(700);
+            scaleAnim.setRepeatCount(-1);
+            scaleAnim.setStartDelay(delays[i]);
+            scaleAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    scaleFloats[index] = (float) animation.getAnimatedValue();
+                    postInvalidate();
+                }
+            });
+            scaleAnim.start();
 
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                int value = (int) animation.getAnimatedValue();
-                //invert from [200:0] to [1.0f, 0.75f]
-                scaleFloats[0] = (float)(value) / DIFFER_SCALES + SCALES[1];
-                //invert value by interval
-                scaleFloats[1] = INTERVAL_SCALE - scaleFloats[0];
-                scaleFloats[2] = scaleFloats[0];
-
-                //invert from [200:0] to [255:55]
-                alphas[0] = value + ALPHAS[1];
-                alphas[1] = INTERVAL_ALPHA - alphas[0];
-                alphas[2] = alphas[0];
-                postInvalidate();
-            }
-        });
-
-        animator.start();
-
-
-        return Collections.singletonList((Animator)animator);
+            ValueAnimator alphaAnim = ValueAnimator.ofInt(255, 51, 255);
+            alphaAnim.setDuration(700);
+            alphaAnim.setRepeatCount(-1);
+            alphaAnim.setStartDelay(delays[i]);
+            alphaAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    alphas[index] = (int) animation.getAnimatedValue();
+                    postInvalidate();
+                }
+            });
+            alphaAnim.start();
+            animators.add(scaleAnim);
+            animators.add(alphaAnim);
+        }
+        return animators;
     }
 
 }

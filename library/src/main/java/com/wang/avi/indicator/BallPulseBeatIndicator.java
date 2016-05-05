@@ -31,13 +31,13 @@ public class BallPulseBeatIndicator extends BaseIndicatorController {
         float x = getWidth() / 2 - (radius * 2 + circleSpacing);
         float y = getHeight() / 2;
         for (int i = 0; i < 3; i++) {
-            canvas.save();
+            int saveCount = canvas.save();
             float translateX = x + (radius * 2) * i + circleSpacing * i;
             canvas.translate(translateX, y);
             canvas.scale(scaleFloats[i], scaleFloats[i]);
             paint.setAlpha(alphas[i]);
             canvas.drawCircle(0, 0, radius, paint);
-            canvas.restore();
+            canvas.restoreToCount(saveCount);
         }
     }
 
@@ -51,7 +51,7 @@ public class BallPulseBeatIndicator extends BaseIndicatorController {
             ValueAnimator scaleAnim = ValueAnimator.ofFloat(1, 0.3f, 1);
 
             scaleAnim.setDuration(750);
-            scaleAnim.setRepeatCount(-1);
+            scaleAnim.setRepeatCount(ValueAnimator.INFINITE);
             scaleAnim.setStartDelay(delays[i]);
 
             scaleAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {

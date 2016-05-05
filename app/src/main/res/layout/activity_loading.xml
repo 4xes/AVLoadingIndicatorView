@@ -356,6 +356,31 @@
         </FrameLayout>
 
         <!-- eighth row -->
+
+        <FrameLayout
+            android:paddingTop="@dimen/padding"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill">
+
+            <com.wang.avi.AVLoadingIndicatorView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:indicator="BallPulse" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:paddingTop="@dimen/padding"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill">
+
+            <com.wang.avi.AVLoadingIndicatorView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:indicator="BallBeat" />
+        </FrameLayout>
+
         <FrameLayout
             android:paddingBottom="@dimen/padding"
             android:paddingTop="@dimen/padding"
@@ -367,6 +392,51 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 app:indicator="BallPulseBeatIndicator" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:paddingBottom="@dimen/padding"
+            android:paddingTop="@dimen/padding"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill"/>
+
+        <!-- ninth row -->
+
+        <FrameLayout
+            android:paddingTop="@dimen/padding"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill">
+
+            <com.wang.avi.AVLoadingIndicatorView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:indicator="BallPulse2" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:paddingTop="@dimen/padding"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill">
+
+            <com.wang.avi.AVLoadingIndicatorView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:indicator="BallBeat2" />
+        </FrameLayout>
+
+
+        <FrameLayout
+            android:paddingTop="@dimen/padding"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill">
+
+            <com.wang.avi.AVLoadingIndicatorView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:indicator="BallPulseBeatIndicator2" />
         </FrameLayout>
 
     </android.support.v7.widget.GridLayout>

@@ -12,13 +12,16 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.wang.avi.indicator.BallBeatIndicator;
+import com.wang.avi.indicator.BallBeatIndicator2;
 import com.wang.avi.indicator.BallClipRotateIndicator;
 import com.wang.avi.indicator.BallClipRotateMultipleIndicator;
 import com.wang.avi.indicator.BallClipRotatePulseIndicator;
 import com.wang.avi.indicator.BallGridBeatIndicator;
 import com.wang.avi.indicator.BallGridPulseIndicator;
 import com.wang.avi.indicator.BallPulseBeatIndicator;
+import com.wang.avi.indicator.BallPulseBeatIndicator2;
 import com.wang.avi.indicator.BallPulseIndicator;
+import com.wang.avi.indicator.BallPulseIndicator2;
 import com.wang.avi.indicator.BallPulseRiseIndicator;
 import com.wang.avi.indicator.BallPulseSyncIndicator;
 import com.wang.avi.indicator.BallRotateIndicator;
@@ -77,7 +80,10 @@ import java.lang.annotation.RetentionPolicy;
  * .PACMAN,
  * .BALL_GRID_BEAT,
  * .SEMI_CIRCLE_SPIN,
- * .BALL_PULSE_BEAT_INDICATOR
+ * .BALL_PULSE2,
+ * .BALL_BEAT2,
+ * .BALL_PULSE_BEAT_INDICATOR,
+ * .BALL_PULSE_BEAT_INDICATOR2,
  */
 public class AVLoadingIndicatorView extends View {
 
@@ -111,7 +117,10 @@ public class AVLoadingIndicatorView extends View {
                     PACMAN,
                     BALL_GRID_BEAT,
                     SEMI_CIRCLE_SPIN,
-                    BALL_PULSE_BEAT_INDICATOR
+                    BALL_PULSE2,
+                    BALL_BEAT2,
+                    BALL_PULSE_BEAT_INDICATOR,
+                    BALL_PULSE_BEAT_INDICATOR2
             })
     @Retention(RetentionPolicy.SOURCE)
     public @interface Indicator {
@@ -145,8 +154,10 @@ public class AVLoadingIndicatorView extends View {
     public static final int PACMAN = 25;
     public static final int BALL_GRID_BEAT = 26;
     public static final int SEMI_CIRCLE_SPIN = 27;
-    public static final int BALL_PULSE_BEAT_INDICATOR = 28;
-
+    public static final int BALL_PULSE2 = 28;
+    public static final int BALL_BEAT2 = 29;
+    public static final int BALL_PULSE_BEAT_INDICATOR = 30;
+    public static final int BALL_PULSE_BEAT_INDICATOR2 = 31;
     /*
      * Array of indicator flags for mapping attribute "indicator" to correct
      * flag value.
@@ -180,7 +191,10 @@ public class AVLoadingIndicatorView extends View {
             PACMAN,
             BALL_GRID_BEAT,
             SEMI_CIRCLE_SPIN,
-            BALL_PULSE_BEAT_INDICATOR
+            BALL_PULSE2,
+            BALL_BEAT2,
+            BALL_PULSE_BEAT_INDICATOR,
+            BALL_PULSE_BEAT_INDICATOR2
     };
     //Sizes (with defaults in DP)
     public static final int DEFAULT_SIZE = 45;
@@ -317,9 +331,19 @@ public class AVLoadingIndicatorView extends View {
             case SEMI_CIRCLE_SPIN:
                 mIndicatorController = new SemiCircleSpinIndicator();
                 break;
+            case BALL_PULSE2:
+                mIndicatorController = new BallPulseIndicator2();
+                break;
+            case BALL_BEAT2:
+                mIndicatorController = new BallBeatIndicator2();
+                break;
             case BALL_PULSE_BEAT_INDICATOR:
                 mIndicatorController = new BallPulseBeatIndicator();
                 break;
+            case BALL_PULSE_BEAT_INDICATOR2:
+                mIndicatorController = new BallPulseBeatIndicator2();
+                break;
+
         }
         mIndicatorController.setTarget(this);
     }
