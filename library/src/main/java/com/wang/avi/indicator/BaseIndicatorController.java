@@ -70,9 +70,7 @@ public abstract class BaseIndicatorController {
         if (mAnimators == null) {
             return;
         }
-        int count = mAnimators.size();
-        for (int i = 0; i < count; i++) {
-            Animator animator = mAnimators.get(i);
+        for(Animator animator: mAnimators){
             boolean isRunning = animator.isRunning();
             switch (animStatus) {
                 case START:
