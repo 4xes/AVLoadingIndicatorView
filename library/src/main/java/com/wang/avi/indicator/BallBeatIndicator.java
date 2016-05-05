@@ -19,10 +19,11 @@ public class BallBeatIndicator extends BaseIndicatorController {
     public static final float[] SCALES = {1.0f, 0.75f, 1.0f};
     public static final int[] ALPHAS = {255, 55, 255};
 
+    //common interval animation for indicator
+    //its based on ALPHAS INTERVAL
     public static final int[] INTERVALS = {200, 0, 200};
 
-    //INTERVALS[0] / (SCALES[0] - SCALES[1]);
-    public static final float DIFFER_VALUE = 800.0f;
+    public static final float DIFFER_SCALES = ((float) INTERVALS[0]) / (SCALES[0]- SCALES[1]);
 
     public static final float INTERVAL_SCALE = SCALES[0] + SCALES[1];
     public static final int INTERVAL_ALPHA = ALPHAS[0] + ALPHAS[1];
@@ -58,7 +59,7 @@ public class BallBeatIndicator extends BaseIndicatorController {
             public void onAnimationUpdate(ValueAnimator animation) {
                 int value = (int) animation.getAnimatedValue();
                 //invert from [200:0] to [1.0f, 0.75f]
-                scaleFloats[0] = (float)(value) / DIFFER_VALUE + SCALES[1];
+                scaleFloats[0] = (float)(value) / DIFFER_SCALES + SCALES[1];
                 //invert value by interval
                 scaleFloats[1] = INTERVAL_SCALE - scaleFloats[0];
                 scaleFloats[2] = scaleFloats[0];
