@@ -2,12 +2,11 @@ package com.wang.avi.indicator;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.util.Log;
 
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ValueAnimator;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -50,11 +49,10 @@ public class BallBeatIndicator extends BaseIndicatorController {
 
     @Override
     public List<Animator> createAnimation() {
-        List<Animator> animators = new ArrayList<>();
-        ValueAnimator scaleAnimator = ValueAnimator.ofInt(INTERVALS);
-        scaleAnimator.setDuration(700);
-        scaleAnimator.setRepeatCount(-1);
-        scaleAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+        ValueAnimator animator = ValueAnimator.ofInt(INTERVALS);
+        animator.setDuration(700);
+        animator.setRepeatCount(-1);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
@@ -73,11 +71,10 @@ public class BallBeatIndicator extends BaseIndicatorController {
             }
         });
 
-        scaleAnimator.start();
+        animator.start();
 
-        animators.add(scaleAnimator);
-//        animators.add(alphaAnim);
-        return animators;
+
+        return Collections.singletonList((Animator)animator);
     }
 
 }
